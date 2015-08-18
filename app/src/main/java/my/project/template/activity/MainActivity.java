@@ -76,6 +76,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                     .getInt(SAVED_PROGRESS, STATE_DEFAULT);
         }
 
+        if (Utils.getSharedPref(this).getInt(AppConstants.PresConstants.PROPERTY_FORCE_RESET_PASS, 0) == 1) {
+            Intent intent = new Intent(this, ResetPasswordActivity.class);
+            intent.putExtra("finish_and_continue", 1);
+            intent.putExtra("show_back", 0);
+            startActivity(intent);
+            finish();
+            return;
+        } else if (Utils.getUserId(mContext) != 0 && !Utils.getLoginSession(mContext).equals("")) {
+            startActivity(new Intent(this, HomeActivity.class));
+            finish();
+            return;
+        }
+
         mGoogleApiClient = buildGoogleApiClient();
 
         Button btnFb = (Button) findViewById(R.id.btnFacebook);
@@ -546,16 +559,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onSuccess(JSONObject body) throws JSONException {
+        Logger.d(TAG, "success");
+        int nu = body.getInt("new_user");
+        Utils.storeUserVariables(body, this);
+        Intent intent = new Intent(mContext, HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("nu", nu);
 
     }
 
     @Override
     public void onMessage(String resp) {
-
+        Logger.d(TAG, "message");
+        Utils.showLongToast(this, resp);
+        rlContent.setVisibility(View.VISIBLE);
+        rlSplashScreen.setVisibility(View.GONE);
     }
 
     @Override
     public void onFailure(String resp, Throwable throwable) {
-
+        Logger.d(TAG, "failed");
+        rlContent.setVisibility(View.VISIBLE);
+        rlSplashScreen.setVisibility(View.GONE);
+        Utils.showLongToast(this, getString(R.string.toast_socket_timeout_error));
     }
 }
