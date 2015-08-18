@@ -1,0 +1,81 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/rlSplashScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <include layout="@layout/layout_splash_screen" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg" />
+
+
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/logo_white" />
+
+
+        <Button
+            android:id="@+id/btnFacebook"
+            style="@style/Button.LoginSignUp"
+            android:layout_below="@id/ivIcon"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/facebook_login_button"
+            android:padding="6dp"
+            android:src="@drawable/fb"
+            android:text="@string/btn_facebook"
+            android:tint="@color/white" />
+
+        <Button
+            android:id="@+id/btnGoogle"
+            style="@style/Button.LoginSignUp"
+            android:layout_below="@+id/btnFacebook"
+            android:background="@drawable/google_login_button"
+            android:padding="6dp"
+            android:src="@drawable/gplus"
+            android:text="@string/btn_google"
+            android:tint="@color/white" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            style="@style/Button.LoginSignUp"
+            android:layout_below="@+id/btnGoogle"
+            android:background="@drawable/transparent_bordered_round_button"
+            android:text="@string/btn_login" />
+
+        <Button
+            android:id="@+id/btnSignup"
+            style="@style/Button.LoginSignUp"
+            android:layout_width="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/transparent_button"
+            android:text="@string/btn_new_user" />
+
+
+    </RelativeLayout>
+</FrameLayout>

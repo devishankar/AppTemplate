@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#e24642</color>
+    <color name="colorPrimaryDark">#ffb6413c</color>
+    <color name="colorAccent">#FF4F4A</color>
+    <color name="textHintColor">#3c000000</color>
+
+    <color name="facebookBtn">#ff3a5a97</color>
+    <color name="googleBtn">#ffdc4c39</color>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+
+    <color name="layoutBackground">#ffffffff</color>
+    <color name="layoutGrayBg">#ffe5e5e5</color>
+
+    <color name="colorNavDrawerText">#DE000000</color>
+    <color name="colorNavDrawerImageTint">#8A000000</color>
+    <color name="nav_drawer_menu_color">#808184</color>
+    <color name="credentials_btn_color">#c0221a15</color>
+</resources>

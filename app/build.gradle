@@ -1,0 +1,48 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.1.1'
+    }
+}
+apply plugin: 'com.android.application'
+
+repositories {
+    jcenter()
+}
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "23.0.0 rc3"
+
+    defaultConfig {
+        applicationId "my.project.template"
+        minSdkVersion 16
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    //ref: http://android-developers.blogspot.in/2015/05/android-design-support-library.html
+    // http://inthecheesefactory.com/blog/android-design-support-library-codelab/en
+    compile 'com.android.support:design:22.2.0'
+
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.google.android.gms:play-services:7.5.0'
+    compile 'com.facebook.android:facebook-android-sdk:3.21.1'
+    compile 'com.google.apis:google-api-services-analytics:v3-rev96-1.18.0-rc'
+    compile 'com.loopj.android:android-async-http:1.4.5'
+    compile 'com.android.support:support-v4:22.2.1'
+}

@@ -1,0 +1,15 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="default_padding">16dp</dimen>
+    <dimen name="activity_horizontal_margin">@dimen/default_padding</dimen>
+    <dimen name="activity_vertical_margin">@dimen/default_padding</dimen>
+
+    <dimen name="navigation_drawer_width">280dp</dimen>
+    <dimen name="inner_elements_margin">8dp</dimen>
+    <dimen name="btn_text_size">16sp</dimen>
+
+    <dimen name="margin_tiny">4dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="vp_horizontal_page_margin">@dimen/margin_tiny</dimen>
+
+</resources>

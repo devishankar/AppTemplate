@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    style="@style/navigation_drawer_list_item_parent_style"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/icon"
+        style="@style/navigation_drawer_list_image_style"
+        android:contentDescription="@string/iv_content_description"
+        android:src="@drawable/ic_action_about"/>
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/navigation_drawer_list_item_style"
+        android:text="@string/menu_action_about"/>
+
+    <TextView
+        android:id="@+id/counter"
+        style="@style/navigation_drawer_list_item_counter_style"/>
+
+</RelativeLayout>

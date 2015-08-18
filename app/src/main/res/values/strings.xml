@@ -1,0 +1,83 @@
+<resources>
+    <string name="app_name">Template</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="btn_facebook">Login with facebook</string>
+    <string name="btn_google">Login with google+</string>
+    <string name="btn_login">Login with Template</string>
+    <string name="btn_new_user">New user? Sign up</string>
+    <string name="btn_signup">Sign up</string>
+    <string name="btn_forgot_password">Forgot Password?</string>
+    <string name="btn_submit">Submit</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_update_password">Update password</string>
+
+    <!--Info facebook and google play errors-->
+    <string name="need_perms_alert_text">In order to continue sign in, you need to accept all the permissions.</string>
+    <string name="need_perms_alert_button_ok">OK</string>
+    <string name="need_perms_alert_button_quit">Quit</string>
+    <string name="msg_btn_error_dialog_title">Network Error</string>
+    <string name="msg_btn_error_dialog_button_text">OK</string>
+    <string name="msg_btn_error_dialog_default_text">No response from the server.</string>
+    <string name="error_authentication_retry">An error occurred that requires your attention. %1$s</string>
+    <string name="error_authentication_reopen">An error occurred, please re-login.</string>
+    <string name="error_permission">Please allow us to post on your behalf.</string>
+    <string name="error_server">Server is busy, please try later.</string>
+    <string name="error_bad_request">An error occurred, please contact Whenda with the following message: %1$s</string>
+    <string name="error_unknown">An unknown error occurred, please contact Whenda with the following message: %1$s</string>
+    <string name="play_services_error">Google Play Service is not available. Install play service from PlayStore.</string>
+    <!--Info facebook and google play errors-->
+
+    <string name="msg_btn_close">Close</string>
+    <string name="hint_enter_email">Enter Email</string>
+    <string name="msg_box_title_add_email">Add Email</string>
+    <string name="error_email_empty">Email address cannot be empty</string>
+    <string name="title_activity_login">@string/app_name</string>
+    <string name="title_activity_home">@string/app_name</string>
+    <string name="title_activity_change_password">Change password</string>
+
+    <string name="toast_socket_timeout_error"><![CDATA[Network Error, check your internet connection & retry]]></string>
+
+    <string name="error_enter_name">Enter your name</string>
+    <string name="error_enter_password">Enter valid password</string>
+    <string name="error_enter_email">Enter valid email</string>
+    <string name="error_enter_phone_number">Enter valid tollFreePhone number</string>
+    <string name="error_enter_current_password">Enter current password</string>
+    <string name="error_enter_new_password">Enter new password</string>
+    <string name="error_re_enter_new_password">Re enter new password</string>
+    <string name="error_found_empty_char">Password should not contain space character</string>
+    <string name="error_password_doesnot_match">Passwords does not match</string>
+
+    <string name="hint_name">Name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_phone">Phone</string>
+    <string name="hint_current_password">Current Password/Temp Password</string>
+    <string name="hint_new_password">New Password</string>
+    <string name="title_activity_sign_up">@string/app_name</string>
+    <string name="hint_confirm_new_password">Confirm New Password</string>
+    <string name="iv_content_description">Image</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_user_profile">Profile</string>
+
+    <string name="menu_action_notification">Notification</string>
+    <string name="menu_action_home">Home</string>
+    <string name="menu_action_my_post">My Post</string>
+    <string name="menu_action_category">View by Category</string>
+    <string name="menu_action_charity">Charity</string>
+    <string name="menu_action_settings">Settings</string>
+    <string name="menu_action_about">About</string>
+    <string name="menu_action_logout">Logout</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_about">About</string>
+    <string name="title_activity_reset_password">Reset Password</string>
+
+    <string name="app_domain">http://www.domain.in</string>
+    <string name="fb_link">https://www.facebook.com/walkin</string>
+    <string name="gp_link">https://plus.google.com/u/0/b/107455584867148323902/107455584867148323902/about/p/pub</string>
+    <string name="tw_link">https://twitter.com/</string>
+    <string name="copyright">&#169;</string>
+</resources>

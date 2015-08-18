@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_action_about"
+            android:title="Home"/>
+        <item
+            android:id="@+id/nav_messages"
+            android:icon="@drawable/ic_action_about"
+            android:title="Messages"/>
+        <item
+            android:id="@+id/nav_friends"
+            android:icon="@drawable/ic_action_about"
+            android:title="Friends"/>
+        <item
+            android:id="@+id/nav_discussion"
+            android:icon="@drawable/ic_action_about"
+            android:title="Discussion"/>
+    </group>
+
+    <item android:title="Others">
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_action_settings"
+                android:title="Settings"/>
+            <item
+                android:id="@+id/nav_rate"
+                android:icon="@drawable/ic_action_good"
+                android:title="Rate the app"/>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_action_share"
+                android:title="Share the app"/>
+            <item
+                android:id="@+id/nav_help"
+                android:icon="@drawable/ic_action_help"
+                android:title="Help"/>
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_action_about"
+                android:title="About"/>
+        </menu>
+    </item>
+
+</menu>

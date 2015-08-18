@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="baseUrl">http://www.domain.com/</string>
+    <!--INFO Session string-->
+    <string name="sessionData">/%1$s/%2$s</string>
+
+    <!--INFO Location data-->
+    <string name="locationData">/%1$s/%2$s</string>
+
+    <!--INFO common api url-->
+    <string name="getData">get/%1$s/%2$s</string>
+    <string name="setData">set/%1$s/%2$s</string>
+
+    <string name="userLogin">userLogin/%1$s/%2$s/%3$s/%4$s/%5$s/%6$s/%7$s/%8$s/%9$s/%10$s</string>
+    <string name="userSignUp">users/userSignUp</string>
+
+    <string name="setGcmRegId">setPushRegId/1/%1$s</string>
+
+</resources>

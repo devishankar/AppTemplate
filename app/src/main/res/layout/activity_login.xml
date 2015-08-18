@@ -1,0 +1,126 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="ams.app.whenda.activity.LoginActivity">
+
+    <RelativeLayout
+        android:id="@+id/rlSplashScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <include layout="@layout/layout_splash_screen"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg"/>
+
+
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/logo_white"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivIcon">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/rlLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible">
+
+                    <EditText
+                        android:id="@+id/edtEmail"
+                        style="@style/credentials_edittext_style"
+                        android:hint="@string/hint_email"
+                        android:inputType="textEmailAddress"/>
+
+                    <EditText
+                        android:id="@+id/edtPassword"
+                        style="@style/credentials_edittext_style"
+                        android:layout_below="@id/edtEmail"
+                        android:hint="@string/hint_password"
+                        android:inputType="textPassword"/>
+
+                    <Button
+                        android:id="@+id/btnLogin"
+                        style="@style/Button.LoginSignUp"
+                        android:layout_below="@+id/edtPassword"
+                        android:background="@drawable/transparent_bordered_round_button"
+                        android:text="@string/btn_login"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlForgotPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <EditText
+                        android:id="@+id/edtForgotEmail"
+                        style="@style/credentials_edittext_style"
+                        android:hint="@string/hint_email"
+                        android:inputType="textEmailAddress"/>
+
+                    <Button
+                        android:id="@+id/btnForgot"
+                        style="@style/Button.LoginSignUp"
+                        android:layout_width="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/edtForgotEmail"
+                        android:background="@drawable/transparent_bordered_round_button"
+                        android:text="@string/btn_submit"/>
+
+                    <Button
+                        android:id="@+id/btnCancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/btnForgot"
+                        android:layout_toLeftOf="@+id/btnForgot"
+                        android:layout_toStartOf="@+id/btnForgot"
+                        android:background="@drawable/transparent_bordered_round_button"
+                        android:text="@string/btn_cancel"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/btn_text_size"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/btnForgotPassword"
+            style="@style/Button.LoginSignUp"
+            android:layout_width="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/transparent_button"
+            android:text="@string/btn_forgot_password"
+            android:visibility="visible"/>
+    </RelativeLayout>
+</FrameLayout>

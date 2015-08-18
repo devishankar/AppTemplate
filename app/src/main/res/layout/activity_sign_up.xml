@@ -1,0 +1,86 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ams.app.whenda.activity.RegisterActivity">
+
+    <RelativeLayout
+        android:id="@+id/rlSplashScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <include layout="@layout/layout_splash_screen" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg" />
+
+
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/logo_white" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivIcon">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edtName"
+                    style="@style/credentials_edittext_style"
+                    android:hint="@string/hint_name"
+                    android:inputType="textPersonName" />
+
+                <EditText
+                    android:id="@+id/edtEmail"
+                    style="@style/credentials_edittext_style"
+                    android:layout_below="@id/edtName"
+                    android:hint="@string/hint_email"
+                    android:inputType="textEmailAddress" />
+
+                <EditText
+                    android:id="@+id/edtPassword"
+                    style="@style/credentials_edittext_style"
+                    android:layout_below="@id/edtEmail"
+                    android:hint="@string/hint_password"
+                    android:inputType="textPassword" />
+
+                <EditText
+                    android:id="@+id/edtPhone"
+                    style="@style/credentials_edittext_style"
+                    android:layout_below="@id/edtPassword"
+                    android:hint="@string/hint_phone"
+                    android:inputType="phone"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btnSignup"
+                    style="@style/Button.LoginSignUp"
+                    android:layout_below="@+id/edtPhone"
+                    android:background="@drawable/transparent_bordered_round_button"
+                    android:text="@string/btn_signup" />
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+</FrameLayout>

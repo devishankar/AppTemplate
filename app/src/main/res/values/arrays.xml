@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="nav_drawer_items">
+        <item>@string/menu_action_notification</item>
+        <item>@string/menu_action_home</item>
+        <item>@string/menu_action_my_post</item>
+        <item>@string/menu_action_category</item>
+        <item>@string/menu_action_charity</item>
+        <item>@string/menu_action_settings</item>
+        <item>@string/menu_action_about</item>
+        <item>@string/menu_action_logout</item>
+    </string-array>
+
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_action_about</item>
+        <item>@drawable/ic_action_about</item>
+        <item>@drawable/ic_action_about</item>
+        <item>@drawable/ic_action_about</item>
+        <item>@drawable/ic_action_about</item>
+        <item>@drawable/ic_action_about</item>
+        <item>@drawable/ic_action_about</item>
+        <item>@drawable/ic_action_logout</item>
+    </array>
+</resources>
