@@ -1,6 +1,5 @@
 .gradle
 .idea
-.DS_Store
 /build
 gradlew
 gradle
