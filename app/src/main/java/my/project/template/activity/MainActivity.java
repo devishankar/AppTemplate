@@ -7,26 +7,22 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.InputFilter;
-import android.text.InputType;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.facebook.AppEventsLogger;
-import com.facebook.FacebookRequestError;
-import com.facebook.Request;
-import com.facebook.Response;
-import com.facebook.Session;
-import com.facebook.SessionState;
-import com.facebook.UiLifecycleHelper;
-import com.facebook.model.GraphUser;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.Profile;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -37,9 +33,6 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import my.project.template.R;
 import my.project.template.http.response.LoginResponseHandler;
 import my.project.template.listener.IHttpResponseListener;
@@ -48,6 +41,9 @@ import my.project.template.utils.AppHttpClient;
 import my.project.template.utils.Logger;
 import my.project.template.utils.Utils;
 
+//ref http://stackoverflow.com/questions/29396265/i-need-users-email-address-after-successful-facebook-login-in-android-using-sdk
+//ref http://stackoverflow.com/questions/29295987/android-facebook-4-0-sdk-how-to-get-email-date-of-birth-and-gender-of-user
+//ref https://www.google.co.in/search?sclient=psy-ab&site=webhp&source=hp&q=FacebookCallback%3CLoginResult%3E%20on%20success%20read%20email&oq=&gs_l=&pbx=1&bav=on.2,or.r_cp.&biw=1366&bih=653&dpr=1&ion=1&ech=1&psi=v08lVo_wBcapuQS-majABg.1445285825500.3&ei=v08lVo_wBcapuQS-majABg&emsg=NCSR&noj=1
 
 public class MainActivity extends BaseActivity implements View.OnClickListener,
         GoogleApiClient.ConnectionCallbacks,
@@ -71,6 +67,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     private PendingIntent mSignInIntent;
     private int mSignInError;
     private boolean signInClicked = false;
+    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,32 +96,102 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         }
 
         mGoogleApiClient = buildGoogleApiClient();
+        callbackManager = CallbackManager.Factory.create();
 
-        Button btnFb = (Button) findViewById(R.id.btnFacebook);
+        //Button btnFb = (Button) findViewById(R.id.btnFacebook);
+        LoginButton btnFacebook = (LoginButton) findViewById(R.id.btnFacebook);
+        btnFacebook.setReadPermissions(AppConstants.PERMISSIONS);
         Button btnGoogle = (Button) findViewById(R.id.btnGoogle);
         Button btnLogin = (Button) findViewById(R.id.btnLogin);
         Button btnSignup = (Button) findViewById(R.id.btnSignup);
         rlContent = (RelativeLayout) findViewById(R.id.rlContent);
         rlSplashScreen = (RelativeLayout) findViewById(R.id.rlSplashScreen);
 
-        btnFb.setOnClickListener(this);
+        //btnFb.setOnClickListener(this);
         btnGoogle.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         btnSignup.setOnClickListener(this);
 
-        UiLifecycleHelper lifecycleHelper = new UiLifecycleHelper(this, new Session.StatusCallback() {
+        btnFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
-            public void call(Session session, SessionState state, Exception exception) {
-                onSessionStateChanged(session, state, exception);
+            public void onSuccess(LoginResult loginResult) {
+                Logger.d(TAG, "Login successful");
+                initMe(loginResult);
+            }
+
+            @Override
+            public void onCancel() {
+                Logger.d(TAG, "Login canceled");
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                Logger.d(TAG, "Login error");
+                exception.printStackTrace();
             }
         });
-        lifecycleHelper.onCreate(savedInstanceState);
-
 
         boolean isLogged = Utils.getSharedPref(mContext).getBoolean(AppConstants.PresConstants.PROPERTY_DEVICE_LOGGED, false);
         if (!isLogged)
             Utils.logDeviceAtFirstLaunch(mContext);
 
+        float fbIconScale = 1.45F;
+        Drawable drawable = getResources().getDrawable(
+                com.facebook.R.drawable.com_facebook_button_icon);
+        drawable.setBounds(0, 0, (int) (drawable.getIntrinsicWidth() * fbIconScale),
+                (int) (drawable.getIntrinsicHeight() * fbIconScale));
+        //btnFacebook.setCompoundDrawables(drawable, null, null, null);
+        btnFacebook.setCompoundDrawables(null, null, null, null);
+        btnFacebook.setCompoundDrawablePadding(getResources().
+                getDimensionPixelSize(R.dimen.fb_margin_override_textpadding));
+        btnFacebook.setPadding(
+                getResources().getDimensionPixelSize(
+                        R.dimen.fb_margin_override_lr),
+                getResources().getDimensionPixelSize(
+                        R.dimen.fb_margin_override_top),
+                0,
+                getResources().getDimensionPixelSize(
+                        R.dimen.fb_margin_override_bottom));
+    }
+
+    private void initMe(LoginResult loginResult) {
+        Log.e("onSuccess", "--------" + loginResult.getAccessToken());
+        Log.e("Token", "--------" + loginResult.getAccessToken().getToken());
+        Log.e("Permision", "--------" + loginResult.getRecentlyGrantedPermissions());
+        Profile profile = Profile.getCurrentProfile();
+        Log.e("ProfileDataNameF", "--" + profile.getFirstName());
+        Log.e("ProfileDataNameL", "--" + profile.getLastName());
+
+        Log.e("Image URI", "--" + profile.getLinkUri());
+
+        Log.e("OnGraph", "------------------------");
+        GraphRequest request = GraphRequest.newMeRequest(
+                loginResult.getAccessToken(),
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(
+                            JSONObject object,
+                            GraphResponse response) {
+                        // Application code
+                        Log.e("GraphResponse", "-------------" + response.toString());
+                    }
+                });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name,link,gender,birthday,email");
+        request.setParameters(parameters);
+        request.executeAsync();
+
+        /*GraphRequest.newMeRequest(
+                loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject me, GraphResponse response) {
+                        if (response.getError() != null) {
+                            // handle error
+                        } else {
+                            String email = me.optString("email");
+                        }
+                    }
+                }).executeAsync();*/
     }
 
     @Override
@@ -166,7 +233,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 mGoogleApiClient.connect();
             }
         } else
-            Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+            callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -182,9 +249,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.btnFacebook:
-                setUpFacebook();
-                break;
+            /*case R.id.btnFacebook:
+                //setUpFacebook();
+                break;*/
             case R.id.btnGoogle:
                 if (!mGoogleApiClient.isConnecting()) {
                     Logger.d(TAG, "Signing in with g+");
@@ -201,7 +268,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         }
     }
 
-    private boolean setUpFacebook() {
+    /*private boolean setUpFacebook() {
         if (Session.getActiveSession() == null ||
                 !Session.getActiveSession().isOpened()) {
             Session.openActiveSession(
@@ -217,7 +284,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             return false;
         }
         return true;
-    }
+    }*/
 
     private void resolveSignInError() {
         if (mSignInIntent != null) {
@@ -237,8 +304,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     }
 
 
-    /*INFO facebook login methods starts*/
-    private void onSessionStateChanged(final Session session, SessionState state, Exception exception) {
+    //region INFO facebook login methods starts
+    /*private void onSessionStateChanged(final Session session, SessionState state, Exception exception) {
         if (state.isOpened() && !sessionHasNecessaryPerms(session)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.need_perms_alert_text);
@@ -470,7 +537,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 .setTitle(title)
                 .setMessage(message)
                 .create();
-    }
+    }*/
+    //endregion
 
     /*INFO google+ login methods starts*/
     private GoogleApiClient buildGoogleApiClient() {

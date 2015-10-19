@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import com.facebook.Session;
+
+import com.facebook.login.LoginManager;
+
 import my.project.template.utils.AppConstants;
 import my.project.template.utils.Logger;
 import my.project.template.utils.Utils;
@@ -45,11 +47,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         Logger.d(TAG, "reg type " + regType);
         Intent intent = new Intent(this, MainActivity.class);
         if (regType == 2) {
-            Session session = Session.getActiveSession();
-            if (session != null && !session.isClosed()) {
-                Logger.d(TAG, "fb Session Closing");
-                session.closeAndClearTokenInformation();
-            }
+            LoginManager.getInstance().logOut();
         }
 
         clearUserVariables();

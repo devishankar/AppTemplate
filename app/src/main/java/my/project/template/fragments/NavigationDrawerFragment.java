@@ -14,8 +14,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
-import com.facebook.widget.ProfilePictureView;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+
 import my.project.template.App;
 import my.project.template.R;
 import my.project.template.activity.HomeActivity;
@@ -25,8 +31,6 @@ import my.project.template.models.NavDrawerBean;
 import my.project.template.utils.AppConstants;
 import my.project.template.utils.Logger;
 import my.project.template.utils.Utils;
-
-import java.util.ArrayList;
 
 /**
  * @author Devishankar
@@ -74,20 +78,20 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         RelativeLayout view = (RelativeLayout) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         RelativeLayout rlUserProfile = (RelativeLayout) view.findViewById(R.id.rlUserProfile);
         rlUserProfile.setOnClickListener(this);
-        ProfilePictureView ivProfileIcon = (ProfilePictureView) view.findViewById(R.id.ivProfileIcon);
-        ivProfileIcon.setVisibility(View.GONE);
+        //ProfilePictureView ivProfileIcon = (ProfilePictureView) view.findViewById(R.id.ivProfileIcon);
+        //ivProfileIcon.setVisibility(View.GONE);
         ImageView ivProfileIconOthers = (ImageView) view.findViewById(R.id.ivProfileIconOthers);
 
         TextView tvUserName = (TextView) view.findViewById(R.id.tvUserName);
         TextView tvUserEmail = (TextView) view.findViewById(R.id.tvUserEmail);
 
         if (Utils.getUserRegType(getActivity()) == 2 && !Utils.getFbId(getActivity()).equals("")) {
-            ivProfileIcon.setProfileId(Utils.getFbId(getActivity()));
-            ivProfileIcon.setPresetSize(ProfilePictureView.NORMAL);
-            ivProfileIcon.setVisibility(View.VISIBLE);
+            //ivProfileIcon.setProfileId(Utils.getFbId(getActivity()));
+            //ivProfileIcon.setPresetSize(ProfilePictureView.NORMAL);
+            //ivProfileIcon.setVisibility(View.VISIBLE);
             ivProfileIconOthers.setVisibility(View.GONE);
         } else if (Utils.getUserRegType(getActivity()) == 3 && !Utils.getGooglePlusUri(getActivity()).equals("")) {
-            ivProfileIcon.setVisibility(View.GONE);
+            //ivProfileIcon.setVisibility(View.GONE);
             ivProfileIconOthers.setVisibility(View.VISIBLE);
             App.imageLoader.displayImage(Utils.getGooglePlusUri(getActivity()), ivProfileIconOthers);
         }

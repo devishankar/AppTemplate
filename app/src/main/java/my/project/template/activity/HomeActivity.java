@@ -10,6 +10,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.facebook.share.model.AppInviteContent;
+import com.facebook.share.widget.AppInviteDialog;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
@@ -86,6 +88,20 @@ public class HomeActivity extends BaseActivity
                         break;
                     case R.id.nav_rate:
                         Utils.launchMarket(mContext);
+                        break;
+                    case R.id.nav_invite:
+                        String appLinkUrl, previewImageUrl;
+
+                        appLinkUrl = "https://www.mydomain.com/myapplink";
+                        previewImageUrl = "https://www.mydomain.com/my_invite_image.jpg";
+
+                        if (AppInviteDialog.canShow()) {
+                            AppInviteContent content = new AppInviteContent.Builder()
+                                    .setApplinkUrl(appLinkUrl)
+                                    .setPreviewImageUrl(previewImageUrl)
+                                    .build();
+                            AppInviteDialog.show(HomeActivity.this, content);
+                        }
                         break;
                     case R.id.nav_about:
                         startActivity(new Intent(mContext, AboutActivity.class));

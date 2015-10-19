@@ -36,7 +36,7 @@
     </style>
 
     <style name="EditText" parent="android:Widget.EditText">
-        <item name="android:fontFamily">sans-serif-light</item>
+        <!--<item name="android:fontFamily">sans-serif-light</item>-->
         <item name="android:longClickable">false</item>
     </style>
 

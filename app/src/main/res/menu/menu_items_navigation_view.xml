@@ -32,9 +32,13 @@
                 android:icon="@drawable/ic_action_good"
                 android:title="Rate the app"/>
             <item
+                android:id="@+id/nav_invite"
+                android:icon="@drawable/ic_action_share"
+                android:title="Invite friends" />
+            <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_action_share"
-                android:title="Share the app"/>
+                android:title="Share the app" />
             <item
                 android:id="@+id/nav_help"
                 android:icon="@drawable/ic_action_help"

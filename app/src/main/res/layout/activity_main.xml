@@ -38,7 +38,7 @@
             android:src="@drawable/logo_white" />
 
 
-        <Button
+        <!--<Button
             android:id="@+id/btnFacebook"
             style="@style/Button.LoginSignUp"
             android:layout_below="@id/ivIcon"
@@ -47,7 +47,18 @@
             android:padding="6dp"
             android:src="@drawable/fb"
             android:text="@string/btn_facebook"
-            android:tint="@color/white" />
+            android:tint="@color/white" />-->
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/btnFacebook"
+            style="@style/Button.LoginSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivIcon"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/facebook_login_button"
+            android:text="@string/btn_facebook"
+            android:textSize="16sp"
+            android:textStyle="normal" />
 
         <Button
             android:id="@+id/btnGoogle"
