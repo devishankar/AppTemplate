@@ -38,6 +38,7 @@
     <string name="title_activity_change_password">Change password</string>
 
     <string name="toast_socket_timeout_error"><![CDATA[Network Error, check your internet connection & retry]]></string>
+    <string name="json_parser_exception"><![CDATA[Something went wrong, please try again later]]></string>
 
     <string name="error_enter_name">Enter your name</string>
     <string name="error_enter_password">Enter valid password</string>

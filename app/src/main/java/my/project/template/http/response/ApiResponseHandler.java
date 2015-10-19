@@ -1,12 +1,14 @@
 package my.project.template.http.response;
 
 import android.content.Context;
+
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import my.project.template.listener.IHttpResponseListener;
-import my.project.template.utils.Logger;
-import org.apache.http.Header;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import my.project.template.listener.IHttpResponseListener;
+import my.project.template.utils.Logger;
 
 
 /**
@@ -21,7 +23,7 @@ public class ApiResponseHandler extends AsyncHttpResponseHandler {
     }
 
     @Override
-    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+    public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
         String resp = new String(responseBody);
         Logger.d(TAG, "api resp received" + resp);
         if (!resp.equals("")) {
@@ -45,7 +47,7 @@ public class ApiResponseHandler extends AsyncHttpResponseHandler {
     }
 
     @Override
-    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
         String resp = "";
         Logger.d(TAG, "api request failed");
         if (responseBody != null)

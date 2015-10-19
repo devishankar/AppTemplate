@@ -2,10 +2,12 @@ package my.project.template.utils;
 
 
 import android.net.Uri;
-import my.project.template.R;
+import android.os.Build;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import my.project.template.R;
 
 /**
  * @author Devishankar
@@ -15,6 +17,7 @@ public class AppConstants {
     public static final String APP_SRC = (DEVELOPER_MODE) ? "DEV" : "PROD";
     public static final String BASE_URL = "http://www.domain.com/";
 
+    public static final String OS_VERSION = Build.VERSION.RELEASE;
     public static final String DEFAULT_PRODUCT_ICON = "drawable://" + R.mipmap.ic_launcher;
     public static final int CUSTOM_POSTAL_CODE_LENGTH = 6;
     public static final Uri M_FACEBOOK_URL = Uri.parse("http://m.facebook.com");
@@ -31,6 +34,7 @@ public class AppConstants {
     public static class PresConstants {
         public static final String PREF_FILE_NAME = "APPLICATION_PREF";
         public static final String PROPERTY_REG_ID = "NOTIFICATION_REG_ID";
+        public static final String PROPERTY_DEVICE_LOGGED = "DEVICE_LOGGED";
         public static final String PROPERTY_FIRST_TIME_USER = "FIRST_TIME_USER";
         public static final String PROPERTY_USER_LEARNED_DRAWER = "DRAWER_LEARNED";
         public static final String PROPERTY_APP_VERSION = "APP_VER";

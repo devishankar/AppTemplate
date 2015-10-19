@@ -1,14 +1,17 @@
 package my.project.template.http.response;
 
 import android.content.Context;
+
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import my.project.template.listener.IHttpResponseListener;
-import my.project.template.utils.Logger;
-import org.apache.http.Header;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+
+import cz.msebera.android.httpclient.Header;
+import my.project.template.listener.IHttpResponseListener;
+import my.project.template.utils.Logger;
 
 /**
  * @author Devishankar
@@ -36,12 +39,12 @@ public class RegisterResponseHandler extends AsyncHttpResponseHandler {
                 int status = header.getInt("status");
                 String msg = header.getString("msg");
                 if (status == 1) {
-
-                    listener.onSuccess(obj.getJSONObject("body"));
+                    listener.onSuccess(obj.has("body") ? obj.getJSONObject("body") : null);
                 } else {
                     listener.onMessage(msg);
                 }
             } catch (JSONException e) {
+                listener.onJsonParseError();
                 e.printStackTrace();
             }
         }

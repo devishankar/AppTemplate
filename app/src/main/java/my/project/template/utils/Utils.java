@@ -1,25 +1,34 @@
 package my.project.template.utils;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.location.*;
+import android.location.Address;
+import android.location.Criteria;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
+
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import my.project.template.R;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -37,6 +46,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Locale;
+
+import cz.msebera.android.httpclient.Header;
+import my.project.template.R;
 
 /**
  * @author Devishankar
@@ -140,13 +152,25 @@ public class Utils {
     }
 
 
+    //info http://android-developers.blogspot.in/2015/09/google-play-services-81-and-android-60.html
     public static Location getLastKnownLocation(Context context) {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         String provider = locationManager.getBestProvider(criteria, true);
         if (provider != null)
-            return locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for Activity#requestPermissions for more details.
+                //return TODO;
+                return locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            }
         return null;
 
     }
@@ -199,6 +223,19 @@ public class Utils {
         return params;
     }
 
+    public static RequestParams getRequestParamsWithoutSession(Context context) {
+        RequestParams params = new RequestParams();
+        params.put("install_id", getInstallId(context));
+
+        Location location = Utils.getLastKnownLocation(context);
+        if (location != null) {
+            params.put("user_lat", location.getLatitude());
+            params.put("user_long", location.getLongitude());
+        }
+        return params;
+    }
+
+
     public static void showLongToast(Context context, String resp) {
         Toast.makeText(context,
                 resp,
@@ -242,6 +279,16 @@ public class Utils {
             return packageInfo.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             throw new RuntimeException("Could not get package name: " + e);
+        }
+    }
+
+    public static void launchMarket(Context context) {
+        Uri uri = Uri.parse("market://details?id=" + context.getPackageName());
+        Intent myAppLinkToMarket = new Intent(Intent.ACTION_VIEW, uri);
+        try {
+            context.startActivity(myAppLinkToMarket);
+        } catch (ActivityNotFoundException e) {
+            //Toast.makeText(this, " unable to find market app", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -443,6 +490,25 @@ public class Utils {
         if (container != null && container.isRefreshing()) {
             container.setRefreshing(false);
         }
+    }
+
+    public static void logDeviceAtFirstLaunch(final Context context) {
+        RequestParams params = Utils.getRequestParamsWithoutSession(context);
+        params.put("action", "log_user_at_first_launch");
+
+        String userRegisterPath = AppConstants.BASE_URL + "logDevice?";
+        AppHttpClient.get(userRegisterPath, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Utils.getSharedPref(context).edit().putBoolean(AppConstants.PresConstants.PROPERTY_DEVICE_LOGGED, true).apply();
+                Logger.d(TAG, "Device logged successfully");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Logger.d(TAG, "Device logged successfully");
+            }
+        });
     }
 }
 

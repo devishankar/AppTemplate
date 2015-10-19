@@ -11,15 +11,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import my.project.template.R;
 import my.project.template.http.response.ApiResponseHandler;
 import my.project.template.listener.IHttpResponseListener;
 import my.project.template.utils.AppConstants;
 import my.project.template.utils.AppHttpClient;
 import my.project.template.utils.Utils;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class ResetPasswordActivity extends BaseActivity
         implements View.OnClickListener, IHttpResponseListener {
@@ -151,6 +154,12 @@ public class ResetPasswordActivity extends BaseActivity
     @Override
     public void onFailure(String resp, Throwable throwable) {
         Utils.showLongToast(this, getString(R.string.toast_socket_timeout_error));
+        pbToolbar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onJsonParseError() {
+        Utils.showLongToast(this, getString(R.string.json_parser_exception));
         pbToolbar.setVisibility(View.GONE);
     }
 }

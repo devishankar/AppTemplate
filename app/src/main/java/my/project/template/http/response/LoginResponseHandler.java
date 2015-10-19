@@ -1,12 +1,15 @@
 package my.project.template.http.response;
 
 import android.content.Context;
+
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import my.project.template.listener.IHttpResponseListener;
-import my.project.template.utils.Logger;
-import org.apache.http.Header;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
+import my.project.template.listener.IHttpResponseListener;
+import my.project.template.utils.Logger;
 
 
 /**
@@ -30,7 +33,7 @@ public class LoginResponseHandler extends AsyncHttpResponseHandler {
                 JSONObject obj = new JSONObject(resp);
                 JSONObject header = obj.getJSONObject("header");
                 int status = header.getInt("status");
-                String msg = header.getString("msg");
+                String msg = (header.has("msg")) ? header.getString("msg") : "";
                 if (status == 1) {
                     Logger.d(TAG, "status success");
                     listener.onSuccess(obj.getJSONObject("body"));

@@ -13,4 +13,6 @@ public interface IHttpResponseListener {
 
     void onFailure(String resp, Throwable throwable);
 
+    void onJsonParseError();
+
 }

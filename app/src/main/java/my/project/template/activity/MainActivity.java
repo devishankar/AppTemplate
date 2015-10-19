@@ -18,7 +18,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import com.facebook.*;
+
+import com.facebook.AppEventsLogger;
+import com.facebook.FacebookRequestError;
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -26,6 +33,13 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import my.project.template.R;
 import my.project.template.http.response.LoginResponseHandler;
 import my.project.template.listener.IHttpResponseListener;
@@ -33,11 +47,6 @@ import my.project.template.utils.AppConstants;
 import my.project.template.utils.AppHttpClient;
 import my.project.template.utils.Logger;
 import my.project.template.utils.Utils;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener,
@@ -110,6 +119,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             }
         });
         lifecycleHelper.onCreate(savedInstanceState);
+
+
+        boolean isLogged = Utils.getSharedPref(mContext).getBoolean(AppConstants.PresConstants.PROPERTY_DEVICE_LOGGED, false);
+        if (!isLogged)
+            Utils.logDeviceAtFirstLaunch(mContext);
+
     }
 
     @Override
@@ -325,12 +340,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void finishFbLogin(GraphUser user, String email) {
-        RequestParams params = new RequestParams();
 
         Logger.d(TAG, "user fb id " + user.getId());
         Logger.d(TAG, "user first name " + user.getFirstName());
         Logger.d(TAG, "user last name " + user.getLastName());
         Logger.d(TAG, "user DOB " + user.getBirthday());
+
+        RequestParams params = Utils.getRequestParams(mContext);
         params.put("email", email);
         params.put("name", user.getName());
         params.put("fname", user.getFirstName());
@@ -338,10 +354,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         params.put("fb_id", user.getId());
         params.put("reg_type", 2);
         params.put("flag_android", 1);
+        params.put("os", "Android");
         params.put("os_ver", Utils.getOsVersion());
         params.put("app_src", AppConstants.APP_SRC);
-        params.put("ls", Utils.getLoginSession(mContext));
-        params.put("install_id", Utils.getInstallId(mContext));
+
         toPass.putString("profile_image", user.getId());
 
         AppHttpClient.get(AppConstants.APP_SRC, params, new LoginResponseHandler(mContext));
@@ -490,10 +506,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         params.put("gender", currentUser.getGender());
         params.put("reg_type", 3);
         params.put("flag_android", 1);
+        params.put("os", "Android");
         params.put("os_ver", Utils.getOsVersion());
         params.put("app_src", AppConstants.APP_SRC);
-        params.put("ls", Utils.getLoginSession(mContext));
-        params.put("install_id", Utils.getInstallId(mContext));
 
         AppHttpClient.get(AppConstants.APP_SRC, params, new LoginResponseHandler(mContext));
 
@@ -582,5 +597,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         rlContent.setVisibility(View.VISIBLE);
         rlSplashScreen.setVisibility(View.GONE);
         Utils.showLongToast(this, getString(R.string.toast_socket_timeout_error));
+    }
+
+    @Override
+    public void onJsonParseError() {
+
+        rlContent.setVisibility(View.VISIBLE);
+        rlSplashScreen.setVisibility(View.GONE);
+
+        Utils.showLongToast(this, getString(R.string.json_parser_exception));
     }
 }

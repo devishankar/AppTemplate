@@ -1,5 +1,6 @@
 package my.project.template.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,31 +9,37 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import my.project.template.App;
 import my.project.template.R;
-import my.project.template.fragments.NavigationDrawerFragment;
+import my.project.template.listener.IHttpResponseListener;
 import my.project.template.utils.AppConstants;
 import my.project.template.utils.Logger;
 import my.project.template.utils.Utils;
 
 public class HomeActivity extends BaseActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks,
-        GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
+        implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        IHttpResponseListener {
 
     private static final String TAG = "HomeActivity";
     SharedPreferences pref;
     private GoogleApiClient mGoogleApiClient;
-    //private NavigationDrawerFragment mDrawerFmt;
     private DrawerLayout mDrawerLayout;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        mContext = this;
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
 
         setTitle(toolbar, R.string.title_activity_home);
@@ -75,6 +82,16 @@ public class HomeActivity extends BaseActivity
                 int id = menuItem.getItemId();
                 switch (id) {
                     case R.id.nav_settings:
+                        startActivity(new Intent(mContext, SettingsActivity.class));
+                        break;
+                    case R.id.nav_rate:
+                        Utils.launchMarket(mContext);
+                        break;
+                    case R.id.nav_about:
+                        startActivity(new Intent(mContext, AboutActivity.class));
+                        break;
+                    case R.id.nav_logout:
+                        initLogout();
                         break;
                     default:
                         break;
@@ -84,40 +101,21 @@ public class HomeActivity extends BaseActivity
         });
     }
 
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        Logger.d(TAG, "selected position " + position);
-        String[] navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
-        String menu = navMenuTitles[position];
-        Logger.d(TAG, "selected menu " + menu);
-
-        switch (menu) {
-            case "About":
-                startActivity(new Intent(this, AboutActivity.class));
-                break;
-            case "Settings":
-                startActivity(new Intent(this, AboutActivity.class));
-                break;
-            case "Logout":
-                int regType = pref.getInt(AppConstants.PresConstants.PROPERTY_USER_REG_TYPE, 0);
-                if (regType == 3) {
-                    try {
-                        if (mGoogleApiClient.isConnected()) {
-                            Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
-                            mGoogleApiClient.disconnect();
-                            mGoogleApiClient.connect();
-                            Logger.d(TAG, "g+ Session Closing");
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+    private void initLogout() {
+        int regType = pref.getInt(AppConstants.PresConstants.PROPERTY_USER_REG_TYPE, 0);
+        if (regType == 3) {
+            try {
+                if (mGoogleApiClient.isConnected()) {
+                    Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+                    mGoogleApiClient.disconnect();
+                    mGoogleApiClient.connect();
+                    Logger.d(TAG, "g+ Session Closing");
                 }
-                logOut();
-                break;
-            default:
-                break;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-
+        logOut();
     }
 
     @Override
@@ -146,4 +144,23 @@ public class HomeActivity extends BaseActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onSuccess(JSONObject body) throws JSONException {
+
+    }
+
+    @Override
+    public void onMessage(String resp) {
+
+    }
+
+    @Override
+    public void onFailure(String resp, Throwable throwable) {
+
+    }
+
+    @Override
+    public void onJsonParseError() {
+
+    }
 }

@@ -12,7 +12,12 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+
 import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import my.project.template.R;
 import my.project.template.http.response.RegisterResponseHandler;
 import my.project.template.listener.IHttpResponseListener;
@@ -20,8 +25,6 @@ import my.project.template.utils.AppConstants;
 import my.project.template.utils.AppHttpClient;
 import my.project.template.utils.Logger;
 import my.project.template.utils.Utils;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class SignUpActivity extends BaseActivity implements View.OnClickListener, IHttpResponseListener {
 
@@ -72,12 +75,14 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
                 strEmail = this.edtEmail.getText().toString();
                 strPassword = this.edtPassword.getText().toString();
 
-                RequestParams params = new RequestParams();
+                RequestParams params = Utils.getRequestParamsWithoutSession(mContext);
                 params.put("user_fname", strName);
                 params.put("user_lname", "");
                 params.put("user_email", strEmail);
                 params.put("password", strPassword);
-                params.put("install_id", Utils.getInstallId(this));
+                params.put("os", "Android");
+                params.put("os_ver", Utils.getOsVersion());
+
                 String userRegisterPath = AppConstants.BASE_URL + getString(R.string.userSignUp);
                 AppHttpClient.get(userRegisterPath, params, new RegisterResponseHandler(mContext));
             }
@@ -121,6 +126,14 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onFailure(String resp, Throwable throwable) {
+        rlContent.setVisibility(View.VISIBLE);
+        rlSplashScreen.setVisibility(View.GONE);
+
+        Utils.showLongToast(this, getString(R.string.toast_socket_timeout_error));
+    }
+
+    @Override
+    public void onJsonParseError() {
         rlContent.setVisibility(View.VISIBLE);
         rlSplashScreen.setVisibility(View.GONE);
 

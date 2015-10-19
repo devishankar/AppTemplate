@@ -10,7 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import my.project.template.R;
 import my.project.template.http.response.LoginResponseHandler;
 import my.project.template.listener.IHttpResponseListener;
@@ -18,8 +23,6 @@ import my.project.template.utils.AppConstants;
 import my.project.template.utils.AppHttpClient;
 import my.project.template.utils.Logger;
 import my.project.template.utils.Utils;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener, IHttpResponseListener {
 
@@ -127,11 +130,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             rlContent.setVisibility(View.GONE);
             rlSplashScreen.setVisibility(View.VISIBLE);
 
-            RequestParams params = new RequestParams();
+            RequestParams params = Utils.getRequestParamsWithoutSession(mContext);
             params.put("user_email", edtEmail.getText().toString());
             params.put("password", edtPassword.getText().toString());
             params.put("reg_type", 1);
             params.put("install_id", Utils.getInstallId(this));
+            params.put("os", "Android");
+            params.put("os_ver", Utils.getOsVersion());
 
             String userRegisterPath = AppConstants.BASE_URL + getString(R.string.userLogin);
             AppHttpClient.get(userRegisterPath, params, new LoginResponseHandler(mContext));
@@ -217,6 +222,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         rlSplashScreen.setVisibility(View.GONE);
 
         Utils.showLongToast(this, getString(R.string.toast_socket_timeout_error));
+    }
+
+    @Override
+    public void onJsonParseError() {
+
+        rlContent.setVisibility(View.VISIBLE);
+        rlSplashScreen.setVisibility(View.GONE);
+
+        Utils.showLongToast(this, getString(R.string.json_parser_exception));
     }
 
     @Override

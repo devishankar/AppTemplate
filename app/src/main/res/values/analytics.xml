@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" translatable="false" tools:ignore="TypographyDashes">
+
+    <!--Google analytics tracking ID-->
+    <string name="ga_trackingId" translatable="false">UA-6761955-25</string>
+
+    <!--Enable automatic activity tracking-->
+    <bool name="ga_autoActivityTracking" translatable="false">true</bool>
+
+    <!--Enable automatic exception tracking-->
+    <bool name="ga_reportUncaughtExceptions" translatable="false">true</bool>
+
+    <!-- App name -->
+    <string name="ga_appName" translatable="false">Template</string>
+
+    <!-- App Version-->
+    <string name="ga_appVersion" translatable="false">2.0</string>
+
+
+    <!--Todo Devishankar-->
+    <!--Set false for Production-->
+    <bool name="ga_debug" translatable="false">false</bool>
+
+    <string name="my.project.template.activity.MainActivity" translatable="false">Main screen</string>
+    <string name="my.project.template.activity.LoginActivity" translatable="false">Login</string>
+    <string name="my.project.template.activity.SignUpActivity" translatable="false">Sign up</string>
+    <string name="my.project.template.activity.ResetPasswordActivity" translatable="false">Change password</string>
+    <string name="my.project.template.activity.SettingsActivity" translatable="false">Settings</string>
+    <string name="my.project.template.activity.HomeActivity" translatable="false">Home screen</string>
+    <string name="my.project.template.activity.AboutActivity" translatable="false">About screen</string>
+    <string name="my.project.template.activity.UserProfileActivity" translatable="false">Profile</string>
+</resources>
