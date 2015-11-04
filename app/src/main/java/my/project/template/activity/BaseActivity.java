@@ -70,4 +70,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         editor.putString(AppConstants.PresConstants.PROPERTY_USER_LNAME, "");
         editor.apply();
     }
+
+    public void logLocalyticsEvent() {
+
+    }
+
 }

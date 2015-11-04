@@ -3,56 +3,83 @@
     package="my.project.template">
 
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
-    <uses-permission android:name="com.project.template.permission.C2D_MESSAGE"/>
-    <uses-permission android:name="android.hardware.camera.autofocus"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-
-    <uses-feature android:name="android.hardware.camera"/>
-    <uses-feature android:name="android.hardware.camera.autofocus"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="my.project.template.permission.C2D_MESSAGE" />
 
     <permission
-        android:name="com.prj.temp.permission.C2D_MESSAGE"
-        android:protectionLevel="signature"/>
+        android:name="my.project.template.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
 
     <application
         android:name="my.project.template.App"
         android:allowBackup="true"
+        android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+            android:value="@string/facebook_app_id" />
         <meta-data
             android:name="app_secret"
-            android:value="@string/facebook_app_secret"/>
+            android:value="@string/facebook_app_secret" />
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.bugsnag.android.API_KEY"
+            android:value="78b7f061dc2914fc995d0fc66ab5a5eb" />
+        <meta-data
+            android:name="LOCALYTICS_APP_KEY"
+            android:value="3ddfa6cb690ee657721ad53-c7524d34-7d60-11e5-98a7-003e57fecdee" />
+
+        <service
+            android:name=".service.GcmIntentService"
+            android:exported="false" />
+
+        <receiver
+            android:name=".receiver.GcmBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="my.project.template" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.localytics.android.ReferralReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name="com.localytics.android.PushTrackingActivity" />
 
         <activity
             android:name="my.project.template.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.White">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -62,33 +89,26 @@
         <activity
             android:name="my.project.template.activity.LoginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme.White"/>
+            android:theme="@style/AppTheme.White" />
         <activity
             android:name="my.project.template.activity.SignUpActivity"
             android:label="@string/title_activity_sign_up"
-            android:theme="@style/AppTheme.White"/>
+            android:theme="@style/AppTheme.White" />
         <activity
             android:name="my.project.template.activity.HomeActivity"
-            android:label="@string/title_activity_home">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
+            android:label="@string/title_activity_home" />
         <activity
             android:name="my.project.template.activity.UserProfileActivity"
-            android:label="@string/title_activity_user_profile"/>
+            android:label="@string/title_activity_user_profile" />
         <activity
             android:name="my.project.template.activity.SettingsActivity"
-            android:label="@string/title_activity_settings"/>
+            android:label="@string/title_activity_settings" />
         <activity
             android:name="my.project.template.activity.AboutActivity"
-            android:label="@string/title_activity_about"/>
+            android:label="@string/title_activity_about" />
         <activity
             android:name=".activity.ResetPasswordActivity"
-            android:label="@string/title_activity_reset_password" >
-        </activity>
+            android:label="@string/title_activity_reset_password" />
     </application>
 
 </manifest>

@@ -36,7 +36,7 @@
 -keep public class * extends android.support.v4.app.DialogFragment
 -keep public class com.android.vending.licensing.ILicensingService
 
--keep public class * extends com.project.template.activity.BaseActivity
+-keep public class * extends my.project.template.activity.BaseActivity
 -keep public class * extends com.loopj.android.http.AsyncHttpResponseHandler
 
 -keep class com.facebook.** {

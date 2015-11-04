@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#e24642</color>
-    <color name="colorPrimaryDark">#ffb6413c</color>
-    <color name="colorAccent">#FF4F4A</color>
+    <color name="colorPrimary">#419444</color>
+    <color name="colorPrimaryDark">#226e26</color>
+    <color name="colorAccent">#64dd17</color>
     <color name="textHintColor">#3c000000</color>
 
     <color name="facebookBtn">#ff3a5a97</color>
@@ -18,4 +18,5 @@
     <color name="colorNavDrawerImageTint">#8A000000</color>
     <color name="nav_drawer_menu_color">#808184</color>
     <color name="credentials_btn_color">#c0221a15</color>
+    <color name="statusBarColor">#000000</color>
 </resources>

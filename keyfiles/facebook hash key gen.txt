@@ -1,0 +1,17 @@
+DEBUG Hash
+D:\Softwares\Developments\openssl-1.0.1l-x64_86-win64>keytool -exportcert -alias androiddebugkey -keystore "C:\Users\Devishankar\.android\.android\debug.keystore" | openssl sha1 -binary | openssl base64
+Picked up _JAVA_OPTIONS: -Xms256m -Xmx1024m
+WWARNING: can't open config file: /usr/local/ssl/openssl.cnf
+ARNING: can't open config file: /usr/local/ssl/openssl.cnf
+/oJLDyHuCyrcVvbDGYrJzomV+ko=
+
+
+
+D:\Softwares\Developments\openssl-1.0.1l-x64_86-win64>keytool -exportcert -alias barterhub -keystore "D:\Development\Barterhub\Keyfiles\barterhub_release_key.keystore" | openssl sha1 -binary | openssl base64
+WARNING: can't open config file: /usr/local/ssl/openssl.cnf
+Picked up _JAVA_OPTIONS: -Xms256m -Xmx1024m
+WARNING: can't open config file: /usr/local/ssl/openssl.cnf
+Enter keystore password:  barterhub
+NfgDlIG7XWJzUZRUL+bZySrMX1Q=
+
+keytool -exportcert -alias androiddebugkey -keystore "D:\Development\Barterhub\Keyfiles\barterhub_release_key.keystore" | openssl sha1 -binary | openssl base64

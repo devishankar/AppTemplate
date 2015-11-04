@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import com.bugsnag.android.Bugsnag;
+import com.bugsnag.android.MetaData;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -74,6 +76,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Utils.getFacebookHash(this);
+        Bugsnag.init(this);
+        MetaData metaData = new MetaData();
+        metaData.addToTab("User", "username", "Devishankar");
+        metaData.addToTab("User", "email", "devishankargru@gmail.com");
+        Bugsnag.notify(new RuntimeException("Non-fatal"), metaData);
         mContext = this;
         toPass = new Bundle();
 
@@ -158,11 +165,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         Log.e("onSuccess", "--------" + loginResult.getAccessToken());
         Log.e("Token", "--------" + loginResult.getAccessToken().getToken());
         Log.e("Permision", "--------" + loginResult.getRecentlyGrantedPermissions());
-        Profile profile = Profile.getCurrentProfile();
-        Log.e("ProfileDataNameF", "--" + profile.getFirstName());
-        Log.e("ProfileDataNameL", "--" + profile.getLastName());
-
-        Log.e("Image URI", "--" + profile.getLinkUri());
 
         Log.e("OnGraph", "------------------------");
         GraphRequest request = GraphRequest.newMeRequest(
@@ -173,7 +175,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                             JSONObject object,
                             GraphResponse response) {
                         // Application code
+                        Profile profile = Profile.getCurrentProfile();
+                        Log.e("ProfileDataNameF", "--" + profile.getFirstName());
+                        Log.e("ProfileDataNameL", "--" + profile.getLastName());
+
+                        Log.e("Image URI", "--" + profile.getLinkUri());
                         Log.e("GraphResponse", "-------------" + response.toString());
+                        Logger.d(TAG, "fb email " + object.optString("email"));
                     }
                 });
         Bundle parameters = new Bundle();

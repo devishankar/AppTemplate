@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 
 import com.facebook.FacebookSdk;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.localytics.android.Localytics;
+import com.localytics.android.LocalyticsActivityLifecycleCallbacks;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -26,6 +28,12 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         FacebookSdk.sdkInitialize(getApplicationContext());
+
+        Localytics.setLoggingEnabled(true);
+        Localytics.integrate(this);
+        Localytics.setPushDisabled(false);
+
+
         DisplayImageOptions options = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
@@ -47,6 +55,8 @@ public class App extends Application {
         setImageLoader(ImageLoader.getInstance());
         getImageLoader().init(config);
         getImageLoader().handleSlowNetwork(true);
+
+        registerActivityLifecycleCallbacks(new LocalyticsActivityLifecycleCallbacks(this));
     }
 
 

@@ -1,0 +1,1 @@
+keytool -genkey -v -keystore "D:\Development\Barterhub\Keyfiles\barterhub_release_key.keystore" -alias barterhub -keyalg RSA -keysize 2048 -validity 10000

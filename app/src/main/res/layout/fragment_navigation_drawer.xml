@@ -3,7 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                tools:context="ams.app.whenda.fragment.NavigationDrawerFragment">
+    tools:context="my.project.template.fragment.NavigationDrawerFragment">
 
     <RelativeLayout
         android:id="@+id/rlUserProfile"

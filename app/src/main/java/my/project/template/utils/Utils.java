@@ -25,15 +25,11 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.bugsnag.android.Bugsnag;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -48,6 +44,11 @@ import java.util.List;
 import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.HttpEntity;
+import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.client.methods.HttpGet;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import my.project.template.R;
 
 /**
@@ -259,7 +260,7 @@ public class Utils {
     public static String getRegistrationId(Context context) {
         final SharedPreferences prefs = getSharedPref(context);
         String registrationId = prefs.getString(AppConstants.PresConstants.PROPERTY_REG_ID, "");
-        if (registrationId != null && registrationId.isEmpty()) {
+        if (registrationId.isEmpty()) {
             Log.i(TAG, "Registration not found.");
             return "";
         }
@@ -398,6 +399,7 @@ public class Utils {
         String userEmail = body.getString("user_email");
         String userFname = body.getString("user_fname");
         String userLname = body.getString("user_lname");
+        Bugsnag.setUser(String.valueOf(userId), userEmail, userFname);
 
         getSharedPref(context).edit().putString(AppConstants.PresConstants.PROPERTY_LOGIN_SESSION, ls).apply();
         getSharedPref(context).edit().putLong(AppConstants.PresConstants.PROPERTY_USER_ID, userId).apply();

@@ -1,0 +1,77 @@
+DEBUG Key
+
+PS D:\Softwares\Developments\openssl-1.0.1l-x64_86-win64> keytool -list -v -keystore 'C:\Users\Devishankar\.android\debu
+g.keystore'
+Picked up _JAVA_OPTIONS: -Xms256m -Xmx1024m
+Enter keystore password:
+
+Keystore type: JKS
+Keystore provider: SUN
+
+Your keystore contains 1 entry
+
+Alias name: androiddebugkey
+Creation date: 3 Dec, 2014
+Entry type: PrivateKeyEntry
+Certificate chain length: 1
+Certificate[1]:
+Owner: CN=Android Debug, O=Android, C=US
+Issuer: CN=Android Debug, O=Android, C=US
+Serial number: 600e0852
+Valid from: Wed Dec 03 17:05:28 IST 2014 until: Fri Nov 25 17:05:28 IST 2044
+Certificate fingerprints:
+         MD5:  66:05:87:CF:02:06:43:AD:BB:68:B1:3A:1C:4B:40:D4
+         SHA1: 31:14:72:31:2A:55:70:E3:35:17:36:4A:A2:05:7C:5D:EF:5E:12:BF
+         SHA256: FB:C1:11:C4:C7:02:7B:00:54:94:01:55:F2:03:28:7D:E0:35:55:9D:02:0C:95:E1:41:6E:22:BA:F9:FC:50:BF
+         Signature algorithm name: SHA256withRSA
+         Version: 3
+
+Extensions:
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: 65 66 6E 71 FE E1 56 76   5E 4F 1C D0 DF 8F BF 5A  efnq..Vv^O.....Z
+0010: 3E 75 EA A6                                        >u..
+]
+]
+
+
+Release Key
+
+keytool -list -v -keystore 'D:\Development\Barterhub\Keyfiles\barterhub_release_key.keystore'
+
+PS C:\Program Files\Java\jdk1.8.0_25\bin> keytool -list -v -keystore 'D:\Development\Barterhub\Keyfiles\barterhub_release_key.keystore'
+Picked up _JAVA_OPTIONS: -Xms256m -Xmx1024m
+Enter keystore password:
+
+Keystore type: JKS
+Keystore provider: SUN
+
+Your keystore contains 1 entry
+
+Alias name: barterhub
+Creation date: 19 Jun, 2015
+Entry type: PrivateKeyEntry
+Certificate chain length: 1
+Certificate[1]:
+Owner: CN=Barterhub, OU=Barterhub.in, O=Barterhub, L=Bangalore, ST=Karnataka, C=IN
+Issuer: CN=Barterhub, OU=Barterhub.in, O=Barterhub, L=Bangalore, ST=Karnataka, C=IN
+Serial number: c5b5927
+Valid from: Fri Jun 19 13:44:36 IST 2015 until: Tue Nov 04 13:44:36 IST 2042
+Certificate fingerprints:
+         MD5:  89:63:78:07:25:96:07:E8:DF:11:3F:B2:9B:2A:F3:BE
+         SHA1: 7D:98:87:99:70:20:C4:07:87:1E:05:3A:35:D5:59:1B:2F:03:F5:E7
+         SHA256: F5:39:FE:79:2B:C2:17:B4:12:27:04:82:5A:81:74:7A:A5:6F:22:D5:21:2F:55:75:A0:7E:C0:8D:8D:6E:EC:87
+         Signature algorithm name: SHA256withRSA
+         Version: 3
+
+Extensions:
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: 7B 79 8A 0A AB 33 D5 84   88 E3 85 39 C7 D5 8E C4  .y...3.....9....
+0010: 9E 66 1C BA                                        .f..
+]
+]
