@@ -50,4 +50,19 @@ public class Logger {
         if (AppConstants.DEVELOPER_MODE)
             Log.e(tag, s, e);
     }
+
+    public static void json(String tag, String str) {
+        if (AppConstants.DEVELOPER_MODE)
+            if (str.length() > 4000) {
+                Logger.d(tag, str.substring(0, 4000));
+                json(tag, str.substring(4000));
+            } else
+                Logger.d(tag, str);
+    }
+
+    public static void getStackTraceString(Throwable th) {
+        if (AppConstants.DEVELOPER_MODE)
+            Log.getStackTraceString(th);
+    }
+
 }

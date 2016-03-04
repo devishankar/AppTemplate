@@ -29,8 +29,8 @@ public class RegisterResponseHandler extends AsyncHttpResponseHandler {
         Logger.d(TAG, "Received response");
         Logger.d(TAG, "status code " + statusCode);
         Logger.d(TAG, "headers " + Arrays.toString(headers));
-        Logger.d(TAG, new String(responseBody));
         String resp = new String(responseBody);
+        Logger.json(TAG, "register resp received " + resp);
         if (!resp.equals("")) {
             try {
 
@@ -55,6 +55,7 @@ public class RegisterResponseHandler extends AsyncHttpResponseHandler {
         String resp = "";
         if (responseBody != null)
             resp = new String(responseBody);
+        Logger.json(TAG, "register resp failed " + resp);
         listener.onFailure(resp, error);
     }
 

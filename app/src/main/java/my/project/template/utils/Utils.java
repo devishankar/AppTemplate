@@ -40,6 +40,7 @@ import java.io.InputStreamReader;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -97,7 +98,7 @@ public class Utils {
 
     public static void getFacebookHash(Context context) {
         try {
-            PackageInfo info = context.getPackageManager().getPackageInfo("com.trip38.activity", PackageManager.GET_SIGNATURES);
+            PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
             assert info.signatures != null;
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
@@ -212,30 +213,46 @@ public class Utils {
     }
 
     public static RequestParams getRequestParams(Context context) {
-        RequestParams params = new RequestParams();
-        params.put("install_id", getInstallId(context));
-        params.put("ls", getLoginSession(context));
+        return getRequestParams(context, new HashMap<String, String>());
+    }
+
+    public static RequestParams getRequestParams(Context context, HashMap<String, String> map) {
+        map.put("install_id", getInstallId(context));
+        map.put("ls", getLoginSession(context));
 
         Location location = Utils.getLastKnownLocation(context);
         if (location != null) {
-            params.put("user_lat", location.getLatitude());
-            params.put("user_long", location.getLongitude());
+            map.put("user_lat", String.valueOf(location.getLatitude()));
+            map.put("user_long", String.valueOf(location.getLongitude()));
         }
-        return params;
+
+        map.put("flag_android", "1");
+        map.put("os", "Android");
+        map.put("os_ver", Utils.getOsVersion());
+        map.put("app_src", AppConstants.APP_SRC);
+
+        return new RequestParams(map);
     }
 
     public static RequestParams getRequestParamsWithoutSession(Context context) {
-        RequestParams params = new RequestParams();
-        params.put("install_id", getInstallId(context));
+        return getRequestParamsWithoutSession(context, new HashMap<String, String>());
+    }
+
+    public static RequestParams getRequestParamsWithoutSession(Context context, HashMap<String, String> map) {
+        map.put("install_id", getInstallId(context));
 
         Location location = Utils.getLastKnownLocation(context);
         if (location != null) {
-            params.put("user_lat", location.getLatitude());
-            params.put("user_long", location.getLongitude());
+            map.put("user_lat", String.valueOf(location.getLatitude()));
+            map.put("user_long", String.valueOf(location.getLongitude()));
         }
-        return params;
-    }
 
+        map.put("flag_android", "1");
+        map.put("os", "Android");
+        map.put("os_ver", Utils.getOsVersion());
+        map.put("app_src", AppConstants.APP_SRC);
+        return new RequestParams(map);
+    }
 
     public static void showLongToast(Context context, String resp) {
         Toast.makeText(context,
@@ -388,7 +405,7 @@ public class Utils {
             }
             url_res = url_res.substring(0, url_res.length() - 1);
         } catch (Exception e) {
-            Logger.e("trip38", "Error in urlEncoding: " + e.toString());
+            Logger.e(TAG, "Error in urlEncoding: " + e.toString());
         }
         return url_res;
     }
