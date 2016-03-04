@@ -365,8 +365,8 @@ public class Utils {
         }
     }
 
-    public static String convertStreamToString(InputStream instream) {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(instream));
+    public static String convertStreamToString(InputStream stream) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         StringBuilder sb = new StringBuilder();
 
         String line;
@@ -378,7 +378,7 @@ public class Utils {
             e.printStackTrace();
         } finally {
             try {
-                instream.close();
+                stream.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
